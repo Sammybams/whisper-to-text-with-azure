@@ -8,7 +8,6 @@ from botbuilder.schema import ChannelAccount
 class MyBot(ActivityHandler):
     # See https://aka.ms/about-bot-activity-message to learn more about the message and other activity types.
 
-    
     async def on_message_activity(self, turn_context: TurnContext):
         # Check if bot was tagged to a message and respond accordingly
         # Get message current user text was tagged to
