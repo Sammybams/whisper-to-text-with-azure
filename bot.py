@@ -25,8 +25,14 @@ def download_file(URL):
 #start command
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Give a simple explanation of what the bot does"""
-    await context.bot.send_message(chat_id=update.effective_chat.id,
-            text=f"Whisper to Text bot helps you transcribe voice notes and audio within your chats to text. I can also help with transalation and summarization.")
+    text = "Whisper to Text bot helps you transcribe voice notes and audio within your chats to text. "
+    text += "I can also help with transalation and summarization.\n\n"
+    text += "To use me, simply reply to an audio or voice note with the following commands:\n"
+    text += "- /transcribe - Transcribe audio or voice note to text\n"
+    text += "- /translate - Translate text from audio or voice note to another language\n"
+    text += "- /summarize - Summarize text from audio or voice note\n"
+
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=text)
     
 
 async def transcribe(update: Update, context: ContextTypes.DEFAULT_TYPE):

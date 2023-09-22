@@ -30,7 +30,7 @@ def TranscribeCommand():
     command = ''
 
     # Configure speech recognition
-    audio_config = speech_sdk.AudioConfig(filename="voice.ogx")
+    audio_config = speech_sdk.AudioConfig(filename="time.wav")
     speech_recognizer = speech_sdk.SpeechRecognizer(speech_config, audio_config)
 
     # Process speech input
