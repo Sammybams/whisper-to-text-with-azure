@@ -31,7 +31,10 @@ def TranscribeCommand():
 
     # Configure speech recognition
     audio_config = speech_sdk.AudioConfig(filename="audio.wav")
+    # audio_config = speech_sdk.AudioConfig(use_default_microphone=True)
+    
     speech_recognizer = speech_sdk.SpeechRecognizer(speech_config, audio_config)
+    print('Unable to recognize speech.')
 
     # Process speech input
     # Process speech input
@@ -40,6 +43,7 @@ def TranscribeCommand():
         command = speech.text
         print(command)
     else:
+        
         print(speech.reason)
         if speech.reason == speech_sdk.ResultReason.Canceled:
             cancellation = speech.cancellation_details
