@@ -5,6 +5,11 @@ import os
 from dotenv import load_dotenv
 import telegram
 import requests
+
+
+# import script to download audio file
+from telegram_audio_download import download_file
+
 #logging
 import logging
 logging.basicConfig(
@@ -15,12 +20,12 @@ load_dotenv()
 
 BOT_TOKEN= os.getenv('BOT_TOKEN')
 
-bot = telegram.Bot(BOT_TOKEN)
+# bot = telegram.Bot(BOT_TOKEN)
 
-def download_file(URL):
-	response = requests.get(URL)
-	with open('voice.ogx', 'wb') as f:
-		f.write(response.content)
+# def download_file(URL):
+# 	response = requests.get(URL)
+# 	with open('voice.ogx', 'wb') as f:
+# 		f.write(response.content)
 
 #start command
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -52,9 +57,14 @@ async def transcribe(update: Update, context: ContextTypes.DEFAULT_TYPE):
         # audio_file = CallbackContext.bot.get_file(audio_id)
         # audio_file.download(f"{audio_id}.ogg")
 
-        file = await bot.get_file(audio_id)
-        # file.download_to_memory()
-        download_file('https://api.telegram.org/file/bot{0}/{1}'.format(BOT_TOKEN, file.file_path))
+        # file = await bot.get_file(audio_id)
+        # # file.download_to_memory()
+        # download_file('https://api.telegram.org/file/bot{0}/{1}'.format(BOT_TOKEN, file.file_path))
+        try:
+            download_file(BOT_TOKEN, audio_id)
+        except:
+            await context.bot.send_message(chat_id=update.effective_chat.id, 
+                text=f"Cannot transcribe file because the size is more than 20MB")
         # downloaded_file = bot.download_file(file.file_path)
         # with open('new_file.ogg', 'wb') as new_file:
         #     new_file.write(downloaded_file)
@@ -66,9 +76,13 @@ async def transcribe(update: Update, context: ContextTypes.DEFAULT_TYPE):
         # audio_file = CallbackContext.bot.get_file(audio_id)
         # audio_file.download(f"{audio_id}.ogg")
 
-        file = await bot.get_file(audio_id)
+        # file = await bot.get_file(audio_id)
         # file.download_to_memory()
-        download_file('https://api.telegram.org/file/bot{0}/{1}'.format(BOT_TOKEN, file.file_path))
+        try:
+            download_file(BOT_TOKEN, audio_id)
+        except:
+            await context.bot.send_message(chat_id=update.effective_chat.id, 
+                text=f"Cannot transcribe file because the size is more than 20MB")
         # downloaded_file = bot.download_file(file.file_path)
         # with open('new_file.ogg', 'wb') as new_file:
         #     new_file.write(downloaded_file)
