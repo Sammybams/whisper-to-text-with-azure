@@ -19,7 +19,7 @@ bot = telegram.Bot(BOT_TOKEN)
 
 def download_file(URL):
 	response = requests.get(URL)
-	with open('voice.ogg', 'wb') as f:
+	with open('voice.ogx', 'wb') as f:
 		f.write(response.content)
 
 #start command
