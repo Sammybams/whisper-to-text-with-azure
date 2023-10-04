@@ -17,7 +17,7 @@ def get_file_path(token, file_id):
 
 def download_file(bot_token, audio_id):
     download_url = get_file_path(bot_token, audio_id)
-    mp3file = get(download_url)
+    oggfile = get(download_url)
 
-    with open('audio.mp3', 'wb') as f:
-        f.write(mp3file.content)
+    with open('audio.ogg', 'wb') as f:
+        f.write(oggfile.content)
