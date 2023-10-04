@@ -1,5 +1,6 @@
 from dotenv import load_dotenv
 from datetime import datetime
+from moviepy.editor import *
 import os
 
 # Import namespaces
@@ -28,7 +29,19 @@ def main():
 
 def TranscribeCommand():
     command = ''
+    output_file = "audio.wav"
+    audioclip = AudioFileClip("audio.ogg")
+    audio_params = {
+        "codec": "pcm_s16le",
+        "fps": 16000,  # Set the desired sampling rate: 16000 Hz
+        # "fps": 8000,  # Alternatively, set the sampling rate to 8000 Hz
+        "nchannels": 1,  # Mono audio
+        "bitrate": "16k"  # Set the desired bitrate
+    }
 
+
+    audioclip.write_audiofile(output_file, codec=audio_params["codec"],fps=audio_params["fps"],nbytes=2,bitrate=audio_params["bitrate"])
+    
     # Configure speech recognition
     audio_config = speech_sdk.AudioConfig(filename="audio.wav")
     # audio_config = speech_sdk.AudioConfig(use_default_microphone=True)
