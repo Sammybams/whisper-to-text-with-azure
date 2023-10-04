@@ -4,7 +4,4 @@
 /share/
 pyvenv.cfg
 .env
-*.mp3
-*.ogg
-*.wav
-*.ogx
+ffprobe

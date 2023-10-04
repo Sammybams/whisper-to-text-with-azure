@@ -31,10 +31,11 @@ def TranscribeCommand():
 
     # Configure speech recognition
     audio_config = speech_sdk.AudioConfig(filename="audio.wav")
-    audio_config = speech_sdk.AudioConfig(use_default_microphone=True)
+    # audio_config = speech_sdk.AudioConfig(use_default_microphone=True)
+    print('Unable to recognize speech.')
     
     speech_recognizer = speech_sdk.SpeechRecognizer(speech_config, audio_config)
-    print('Unable to recognize speech.')
+    # print('Unable to recognize speech.')
 
     # Process speech input
     # Process speech input

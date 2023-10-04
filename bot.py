@@ -105,8 +105,10 @@ async def transcribe(update: Update, context: ContextTypes.DEFAULT_TYPE):
         
 if __name__ == "__main__":
     application = Application.builder().token(BOT_TOKEN).build()
-    start_handler = CommandHandler("start", start, filters.ChatType.GROUPS)
-    transcribe_handler = CommandHandler("transcribe", transcribe, filters.ChatType.GROUPS)
+    # start_handler = CommandHandler("start", start, filters.ChatType.GROUPS)
+    start_handler = CommandHandler("start", start)
+    # transcribe_handler = CommandHandler("transcribe", transcribe, filters.ChatType.GROUPS)
+    transcribe_handler = CommandHandler("transcribe", transcribe)
     application.add_handler(start_handler)
     application.add_handler(transcribe_handler)
     application.run_polling()
