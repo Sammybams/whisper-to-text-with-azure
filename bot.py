@@ -9,6 +9,7 @@ import requests
 
 # import script to download audio file
 from telegram_audio_download import download_file
+from speech import TranscribeCommand
 
 #logging
 import logging
@@ -53,7 +54,7 @@ async def transcribe(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.message.reply_to_message.voice:
         # Get voice note file id
         audio_id = update.message.reply_to_message.voice.file_id
-        print(audio_id)
+        # print(audio_id)
         # audio_file = CallbackContext.bot.get_file(audio_id)
         # audio_file.download(f"{audio_id}.ogg")
 
@@ -62,6 +63,8 @@ async def transcribe(update: Update, context: ContextTypes.DEFAULT_TYPE):
         # download_file('https://api.telegram.org/file/bot{0}/{1}'.format(BOT_TOKEN, file.file_path))
         try:
             download_file(BOT_TOKEN, audio_id)
+            await context.bot.send_message(chat_id=update.effective_chat.id, 
+                text=TranscribeCommand())
         except:
             await context.bot.send_message(chat_id=update.effective_chat.id, 
                 text=f"Cannot transcribe file because the size is more than 20MB")
@@ -72,7 +75,7 @@ async def transcribe(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif update.message.reply_to_message.audio:
         # Get audio file id
         audio_id = update.message.reply_to_message.audio.file_id
-        print(audio_id)
+        # print(audio_id)
         # audio_file = CallbackContext.bot.get_file(audio_id)
         # audio_file.download(f"{audio_id}.ogg")
 
@@ -80,6 +83,8 @@ async def transcribe(update: Update, context: ContextTypes.DEFAULT_TYPE):
         # file.download_to_memory()
         try:
             download_file(BOT_TOKEN, audio_id)
+            await context.bot.send_message(chat_id=update.effective_chat.id, 
+                text=TranscribeCommand())
         except:
             await context.bot.send_message(chat_id=update.effective_chat.id, 
                 text=f"Cannot transcribe file because the size is more than 20MB")
