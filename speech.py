@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 from datetime import datetime
 from moviepy.editor import *
 import os
-
+import time
 # Import namespaces
 import azure.cognitiveservices.speech as speech_sdk
 
@@ -50,22 +50,45 @@ def TranscribeCommand():
     speech_recognizer = speech_sdk.SpeechRecognizer(speech_config, audio_config)
     # print('Unable to recognize speech.')
 
-    # Process speech input
-    # Process speech input
-    speech = speech_recognizer.recognize_once_async().get()
-    if speech.reason == speech_sdk.ResultReason.RecognizedSpeech:
-        command = speech.text
-        print(command)
-    else:
-        
-        print(speech.reason)
-        if speech.reason == speech_sdk.ResultReason.Canceled:
-            cancellation = speech.cancellation_details
-            print(cancellation.reason)
-            print(cancellation.error_details)
+    # use Start Continuous Recognition to process long audio file
+    # speech_recognizer.start_continuous_recognition()
+    # print('Unable to recognize speech.')
+    # time.sleep(10)
+    # speech_recognizer.stop_continuous_recognition()
+    done = False
+    def stop_cb(evt):
+        """callback that signals to stop continuous recognition upon receiving an event `evt`"""
+        nonlocal done
+        done = True
 
-    # Return the command
-    return command
+    all_texts = []
+    def handle_final_result(evt):
+        all_texts.append(evt.result.text)
+
+    # Connect callbacks to the events fired by the speech recognizer
+    speech_recognizer.recognized.connect(handle_final_result)
+    # speech_recognizer.recognizing.connect(lambda evt: print('RECOGNIZING: {}'.format(evt)))
+    # speech_recognizer.recognized.connect(lambda evt: print('RECOGNIZED: {}'.format(evt)))
+    # speech_recognizer.session_started.connect(lambda evt: print('SESSION STARTED: {}'.format(evt)))
+    # speech_recognizer.session_stopped.connect(lambda evt: print('SESSION STOPPED {}'.format(evt)))
+    # speech_recognizer.canceled.connect(lambda evt: print('CANCELED {}'.format(evt)))
+
+    # stop continuous recognition on either session stopped or canceled events
+    speech_recognizer.session_stopped.connect(stop_cb)
+    speech_recognizer.canceled.connect(stop_cb)
+
+    # Start continuous speech recognition
+    speech_recognizer.start_continuous_recognition()
+    while not done:
+        time.sleep(.5)
+
+    speech_recognizer.stop_continuous_recognition()
+    # print(speech_sdk.SessionEventArgs.result.text)
+    # </SpeechContinuousRecognitionWithFile>
+    
+    # print("\n".join(all_texts))
+    # Process speech input
+    return "\n".join(all_texts)
 
 
 def TellTime():
