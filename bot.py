@@ -9,6 +9,8 @@ import requests
 
 # import script to download audio file
 from telegram_audio_download import download_file
+
+# import Transcription command from speech script
 from speech import TranscribeCommand
 
 #logging
@@ -20,13 +22,6 @@ logging.basicConfig(
 load_dotenv()
 
 BOT_TOKEN= os.getenv('BOT_TOKEN')
-
-# bot = telegram.Bot(BOT_TOKEN)
-
-# def download_file(URL):
-# 	response = requests.get(URL)
-# 	with open('voice.ogx', 'wb') as f:
-# 		f.write(response.content)
 
 #start command
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -54,13 +49,7 @@ async def transcribe(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.message.reply_to_message.voice:
         # Get voice note file id
         audio_id = update.message.reply_to_message.voice.file_id
-        # print(audio_id)
-        # audio_file = CallbackContext.bot.get_file(audio_id)
-        # audio_file.download(f"{audio_id}.ogg")
 
-        # file = await bot.get_file(audio_id)
-        # # file.download_to_memory()
-        # download_file('https://api.telegram.org/file/bot{0}/{1}'.format(BOT_TOKEN, file.file_path))
         try:
             download_file(BOT_TOKEN, audio_id)
             await context.bot.send_message(chat_id=update.effective_chat.id, 
@@ -68,19 +57,11 @@ async def transcribe(update: Update, context: ContextTypes.DEFAULT_TYPE):
         except:
             await context.bot.send_message(chat_id=update.effective_chat.id, 
                 text=f"Cannot transcribe file because the size is more than 20MB")
-        # downloaded_file = bot.download_file(file.file_path)
-        # with open('new_file.ogg', 'wb') as new_file:
-        #     new_file.write(downloaded_file)
 
     elif update.message.reply_to_message.audio:
         # Get audio file id
         audio_id = update.message.reply_to_message.audio.file_id
-        # print(audio_id)
-        # audio_file = CallbackContext.bot.get_file(audio_id)
-        # audio_file.download(f"{audio_id}.ogg")
 
-        # file = await bot.get_file(audio_id)
-        # file.download_to_memory()
         try:
             download_file(BOT_TOKEN, audio_id)
             await context.bot.send_message(chat_id=update.effective_chat.id, 
@@ -88,24 +69,12 @@ async def transcribe(update: Update, context: ContextTypes.DEFAULT_TYPE):
         except:
             await context.bot.send_message(chat_id=update.effective_chat.id, 
                 text=f"Cannot transcribe file because the size is more than 20MB")
-        # downloaded_file = bot.download_file(file.file_path)
-        # with open('new_file.ogg', 'wb') as new_file:
-        #     new_file.write(downloaded_file)
 
     else:
         # No audio or voice note found
         await context.bot.send_message(chat_id=update.effective_chat.id,
             text=f"Please reply to an audio or voice note to transcribe")
         return
-    
-    # Get audio file object
-    # File(audio_id, audio_unique_id).download()
-    # audio_file = await context.bot.get_file(audio_id)
-    # Download audio file
-    # audio_file.download('audio.ogg')
-
-    # audio = update.message.reply_to_message.voice.file_id
-    print("Hello")
     
         
 if __name__ == "__main__":
