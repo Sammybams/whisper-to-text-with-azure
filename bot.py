@@ -1,11 +1,8 @@
 #import the necessary packages
-from telegram import Update, File
-from telegram.ext import  filters, CommandHandler, MessageHandler, ContextTypes, Application, CallbackContext
+from telegram import Update
+from telegram.ext import  filters, CommandHandler, MessageHandler, ContextTypes, Application
 import os
 from dotenv import load_dotenv
-import telegram
-import requests
-
 
 # import script to download audio file
 from telegram_audio_download import download_file
@@ -41,8 +38,7 @@ async def transcribe(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Get audio file to which transcribe command is replied to
     if update.message.reply_to_message is None:
         # No audio or voice note found
-        await context.bot.send_message(chat_id=update.effective_chat.id,
-            text=f"Please reply to an audio or voice note to transcribe")
+        await update.message.reply_text("Please reply to an audio or voice note to transcribe")
         return
     
     # Get audio file id
@@ -53,38 +49,30 @@ async def transcribe(update: Update, context: ContextTypes.DEFAULT_TYPE):
         try:
             download_file(BOT_TOKEN, audio_id)
             await update.message.reply_text(TranscribeCommand())
-            
+
         except:
-            await context.bot.send_message(chat_id=update.effective_chat.id, 
-                text=f"Cannot transcribe file because the size is more than 20MB")
+            await update.message.reply_text("Cannot transcribe file because the size is more than 20MB")
 
     elif update.message.reply_to_message.audio:
         # Get audio file id
         audio_id = update.message.reply_to_message.audio.file_id
-
-        # tag message of user
-        user = update.message.reply_text()
 
         try:
             download_file(BOT_TOKEN, audio_id)
             await update.message.reply_text(TranscribeCommand())
 
         except:
-            await context.bot.send_message(chat_id=update.effective_chat.id, 
-                text=f"Cannot transcribe file because the size is more than 20MB")
+            await update.message.reply_text("Cannot transcribe file because the size is more than 20MB")
 
     else:
         # No audio or voice note found
-        await context.bot.send_message(chat_id=update.effective_chat.id,
-            text=f"Please reply to an audio or voice note to transcribe")
+        await update.message.reply_text("Please reply to an audio or voice note to transcribe")
         return
     
         
 if __name__ == "__main__":
     application = Application.builder().token(BOT_TOKEN).build()
-    # start_handler = CommandHandler("start", start, filters.ChatType.GROUPS)
     start_handler = CommandHandler("start", start)
-    # transcribe_handler = CommandHandler("transcribe", transcribe, filters.ChatType.GROUPS)
     transcribe_handler = CommandHandler("transcribe", transcribe)
     application.add_handler(start_handler)
     application.add_handler(transcribe_handler)
