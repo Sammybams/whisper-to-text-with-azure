@@ -52,8 +52,8 @@ async def transcribe(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         try:
             download_file(BOT_TOKEN, audio_id)
-            await context.bot.send_message(chat_id=update.effective_chat.id, 
-                text=TranscribeCommand())
+            await update.message.reply_text(TranscribeCommand())
+            
         except:
             await context.bot.send_message(chat_id=update.effective_chat.id, 
                 text=f"Cannot transcribe file because the size is more than 20MB")
@@ -62,10 +62,13 @@ async def transcribe(update: Update, context: ContextTypes.DEFAULT_TYPE):
         # Get audio file id
         audio_id = update.message.reply_to_message.audio.file_id
 
+        # tag message of user
+        user = update.message.reply_text()
+
         try:
             download_file(BOT_TOKEN, audio_id)
-            await context.bot.send_message(chat_id=update.effective_chat.id, 
-                text=TranscribeCommand())
+            await update.message.reply_text(TranscribeCommand())
+
         except:
             await context.bot.send_message(chat_id=update.effective_chat.id, 
                 text=f"Cannot transcribe file because the size is more than 20MB")
