@@ -52,11 +52,11 @@ def TranscribeCommand():
 
     # use Start Continuous Recognition to process long audio file
     # speech_recognizer.start_continuous_recognition()
-    # print('Unable to recognize speech.')
+    # print('Unable; to recognize speech.')
     # time.sleep(10)
     # speech_recognizer.stop_continuous_recognition()
     done = False
-    def stop_cb(evt):
+    def stop_cb(evt: speech_sdk.SpeechRecognitionEventArgs):
         """callback that signals to stop continuous recognition upon receiving an event `evt`"""
         nonlocal done
         done = True
@@ -89,21 +89,6 @@ def TranscribeCommand():
     # print("\n".join(all_texts))
     # Process speech input
     return "\n".join(all_texts)
-
-
-def TellTime():
-    now = datetime.now()
-    response_text = 'The time is {}:{:02d}'.format(now.hour,now.minute)
-
-
-    # Configure speech synthesis
-    
-
-    # Synthesize spoken output
-
-
-    # Print the response
-    print(response_text)
 
 
 if __name__ == "__main__":
