@@ -1,5 +1,5 @@
 #import the necessary packages
-from telegram import Update
+from telegram import Update, Bot
 from telegram.ext import  filters, CommandHandler, MessageHandler, ContextTypes, Application
 import os
 from dotenv import load_dotenv
@@ -10,6 +10,11 @@ from telegram_audio_download import download_file
 # import Transcription command from speech script
 from speech import TranscribeCommand
 
+BOT_TOKEN= os.getenv('BOT_TOKEN')
+bot = Bot(token=BOT_TOKEN)
+bot.setWebhook(url='https://whisper-to-text.azurewebsites.net/api/http_trigger')
+
+
 #logging
 import logging
 logging.basicConfig(
@@ -18,7 +23,7 @@ logging.basicConfig(
 
 load_dotenv()
 
-BOT_TOKEN= os.getenv('BOT_TOKEN')
+
 
 #start command
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
