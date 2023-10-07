@@ -11,8 +11,11 @@ from telegram_audio_download import download_file
 from speech import TranscribeCommand
 
 BOT_TOKEN= os.getenv('BOT_TOKEN')
+WEB_SERVER = os.getenv('WEB_SERVER')
+
+PORT = int(os.environ.get('PORT', '5000'))
 bot = Bot(token=BOT_TOKEN)
-bot.setWebhook(url='https://whisper-to-text.azurewebsites.net/api/http_trigger')
+bot.setWebhook(WEB_SERVER + BOT_TOKEN)
 
 
 #logging
