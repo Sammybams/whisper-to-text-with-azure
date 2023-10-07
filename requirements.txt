@@ -19,11 +19,6 @@ backcall==0.2.0
 beautifulsoup4==4.12.2
 binaryornot==0.4.4
 bleach==6.0.0
-botbuilder-core==4.14.4
-botbuilder-integration-aiohttp==4.14.4
-botbuilder-schema==4.14.4
-botframework-connector==4.14.4
-botframework-streaming==4.14.4
 certifi==2023.7.22
 cffi==1.15.1
 chardet==5.2.0
