@@ -3,5 +3,4 @@
 /lib/
 /share/
 pyvenv.cfg
-.env
-ffprobe
+*.env
