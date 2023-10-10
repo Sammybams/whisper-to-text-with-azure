@@ -16,7 +16,7 @@ WEB_SERVER = os.getenv('WEB_SERVER')
 PORT = int(os.environ.get('PORT', '8080'))
 print(f"PORT {PORT}")
 bot = Bot(token=BOT_TOKEN)
-# bot.setWebhook(f'https://api.telegram.org/bot{BOT_TOKEN}/setWebhook?url={WEB_SERVER}')
+#bot.setWebhook(f'https://api.telegram.org/bot{BOT_TOKEN}/setWebhook?url={WEB_SERVER}')
 
 
 #logging
@@ -85,7 +85,7 @@ if __name__ == "__main__":
     transcribe_handler = CommandHandler("transcribe", transcribe)
     application.add_handler(start_handler)
     application.add_handler(transcribe_handler)
-    # application.run_polling()
+    #application.run_polling()
     application.run_webhook(listen="0.0.0.0",
                           port=int(PORT),
                           url_path=BOT_TOKEN,webhook_url=WEB_SERVER+BOT_TOKEN)
