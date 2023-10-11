@@ -13,9 +13,14 @@ from speech import TranscribeCommand
 BOT_TOKEN= os.getenv('BOT_TOKEN')
 WEB_SERVER = os.getenv('WEB_SERVER')
 
+<<<<<<< HEAD
 # PORT = int(os.environ.get('PORT', '5000'))
+=======
+PORT = int(os.environ.get('PORT', '8080'))
+print(f"PORT {PORT}")
+>>>>>>> 3cf45cdc5559632bad58068c07f739101749dce3
 bot = Bot(token=BOT_TOKEN)
-bot.setWebhook(WEB_SERVER + BOT_TOKEN)
+#bot.setWebhook(f'https://api.telegram.org/bot{BOT_TOKEN}/setWebhook?url={WEB_SERVER}')
 
 
 #logging
@@ -84,7 +89,14 @@ if __name__ == "__main__":
     transcribe_handler = CommandHandler("transcribe", transcribe)
     application.add_handler(start_handler)
     application.add_handler(transcribe_handler)
+<<<<<<< HEAD
     application.run_polling()
     # application.run_webhook(listen="0.0.0.0",
     #                       port=int(PORT),
     #                       url_path=BOT_TOKEN,webhook_url=WEB_SERVER + BOT_TOKEN)
+=======
+    #application.run_polling()
+    application.run_webhook(listen="0.0.0.0",
+                          port=int(PORT),
+                          url_path=BOT_TOKEN,webhook_url=WEB_SERVER+BOT_TOKEN)
+>>>>>>> 3cf45cdc5559632bad58068c07f739101749dce3

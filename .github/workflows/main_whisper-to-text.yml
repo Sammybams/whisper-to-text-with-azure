@@ -60,4 +60,4 @@ jobs:
         with:
           app-name: 'whisper-to-text'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1DEF59C6391243079DA23DDE816D63E6 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_FADA4019BC4642E4ABF36D9DB16FD549 }}
