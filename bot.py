@@ -78,13 +78,14 @@ async def transcribe(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
     
         
-if __name__ == "__main__":
-    application = Application.builder().token(BOT_TOKEN).build()
-    start_handler = CommandHandler("start", start)
-    transcribe_handler = CommandHandler("transcribe", transcribe)
-    application.add_handler(start_handler)
-    application.add_handler(transcribe_handler)
-    application.run_polling()
-    # application.run_webhook(listen="0.0.0.0",
-    #                       port=int(PORT),
-    #                       url_path=BOT_TOKEN,webhook_url=WEB_SERVER + BOT_TOKEN)
+def run():
+    if __name__ == "__main__":
+        application = Application.builder().token(BOT_TOKEN).build()
+        start_handler = CommandHandler("start", start)
+        transcribe_handler = CommandHandler("transcribe", transcribe)
+        application.add_handler(start_handler)
+        application.add_handler(transcribe_handler)
+        application.run_polling()
+        # application.run_webhook(listen="0.0.0.0",
+        #                       port=int(PORT),
+        #                       url_path=BOT_TOKEN,webhook_url=WEB_SERVER + BOT_TOKEN)
