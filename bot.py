@@ -47,7 +47,6 @@ async def transcribe(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.message.reply_to_message is None:
         # No audio or voice note found
         await update.message.reply_text("Please reply to an audio or voice note to transcribe")
-        return
     
     # Get audio file id
     if update.message.reply_to_message.voice:
@@ -75,7 +74,6 @@ async def transcribe(update: Update, context: ContextTypes.DEFAULT_TYPE):
     else:
         # No audio or voice note found
         await update.message.reply_text("Please reply to an audio or voice note to transcribe")
-        return
     
 if __name__ == "__main__":
     application = Application.builder().token(BOT_TOKEN).build()
