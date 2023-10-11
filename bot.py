@@ -89,14 +89,7 @@ if __name__ == "__main__":
     transcribe_handler = CommandHandler("transcribe", transcribe)
     application.add_handler(start_handler)
     application.add_handler(transcribe_handler)
-<<<<<<< HEAD
     application.run_polling()
     # application.run_webhook(listen="0.0.0.0",
     #                       port=int(PORT),
     #                       url_path=BOT_TOKEN,webhook_url=WEB_SERVER + BOT_TOKEN)
-=======
-    #application.run_polling()
-    application.run_webhook(listen="0.0.0.0",
-                          port=int(PORT),
-                          url_path=BOT_TOKEN,webhook_url=WEB_SERVER+BOT_TOKEN)
->>>>>>> 3cf45cdc5559632bad58068c07f739101749dce3
