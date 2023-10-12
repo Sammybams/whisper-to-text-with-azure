@@ -1,11 +1,11 @@
-name: Update Leaderboard and Resize Images
+name: Run bot
 
 on:
   push:
     branches:
       - main  # Replace 'main' with your main branch name if needed
-  schedule:
-    - cron: '0 */6 * * *'
+  # schedule:
+  #   - cron: '0 */6 * * *'
 
 jobs:
   run-bot:
