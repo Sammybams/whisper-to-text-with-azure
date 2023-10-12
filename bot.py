@@ -57,7 +57,8 @@ async def transcribe(update: Update, context: ContextTypes.DEFAULT_TYPE):
             download_file(BOT_TOKEN, audio_id)
             await update.message.reply_text(TranscribeCommand())
 
-        except:
+        except Exception as e:
+            print(f"An error occurred: {e}")
             await update.message.reply_text("Cannot transcribe file because the size is more than 20MB")
 
     elif update.message.reply_to_message.audio:
@@ -68,7 +69,8 @@ async def transcribe(update: Update, context: ContextTypes.DEFAULT_TYPE):
             download_file(BOT_TOKEN, audio_id)
             await update.message.reply_text(TranscribeCommand())
 
-        except:
+        except Exception as e:
+            print(f"An error occurred: {e}")
             await update.message.reply_text("Cannot transcribe file because the size is more than 20MB")
 
     else:
