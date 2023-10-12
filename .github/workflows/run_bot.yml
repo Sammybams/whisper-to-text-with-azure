@@ -3,9 +3,10 @@ name: Run bot
 on:
   push:
     branches:
-      - main  # Replace 'main' with your main branch name if needed
+      - main  
   schedule:
     - cron: '0 */6 * * *'
+  workflow_dispatch: {}  # Add workflow dispatch for manual triggering
 
 jobs:
   run-bot:
