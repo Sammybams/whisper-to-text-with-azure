@@ -19,12 +19,23 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.9
-
-      - name: Install dependencies and run script
+        
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+
+      - name: Pass Environment Variables and Run Scripts
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          COG_SERVICE_KEY: ${{ secrets.COG_SERVICE_KEY }}
+          COG_SERVICE_REGION: ${{ secrets.COG_SERVICE_REGION }}
+
+        run: |
+          # Pass the secrests as environment variables to script
           python bot.py          
+
+          
 
       # - name: Check for changes
       #   id: check_changes

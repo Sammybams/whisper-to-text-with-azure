@@ -11,7 +11,7 @@ from telegram_audio_download import download_file
 from speech import TranscribeCommand
 
 BOT_TOKEN= os.getenv('BOT_TOKEN')
-WEB_SERVER = os.getenv('WEB_SERVER')
+# WEB_SERVER = os.getenv('WEB_SERVER')
 
 PORT = int(os.environ.get('PORT', '5000'))
 bot = Bot(token=BOT_TOKEN)
