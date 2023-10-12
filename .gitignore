@@ -5,3 +5,5 @@
 pyvenv.cfg
 *.env
 /__pycache__/
+*.ogg
+*.wav
