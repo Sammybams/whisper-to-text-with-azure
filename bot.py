@@ -35,8 +35,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text += "I can also help with transalation and summarization.\n\n"
     text += "To use me, simply reply to an audio or voice note with the following commands:\n"
     text += "- /transcribe - Transcribe audio or voice note to text\n"
-    text += "- /translate - Translate text from audio or voice note to another language\n"
-    text += "- /summarize - Summarize text from audio or voice note\n"
+    text += "- /translate - Translate text from audio or voice note to another language (Coming soon)\n"
+    text += "- /summarize - Summarize text from audio or voice note (Coming soon)"
 
     await context.bot.send_message(chat_id=update.effective_chat.id, text=text)
     
