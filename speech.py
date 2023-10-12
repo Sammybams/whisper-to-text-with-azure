@@ -13,19 +13,7 @@ cog_region = os.getenv('COG_SERVICE_REGION')
 
 # Configure speech service
 speech_config = speech_sdk.SpeechConfig(cog_key, cog_region)
-print('Ready to use speech service in:', speech_config.region)
-
-
-def main():
-    try:
-
-        # Get spoken input
-        command = TranscribeCommand()
-        if command.lower() == 'what time is it?':
-            TellTime()
-
-    except Exception as ex:
-        print(ex)
+# print('Ready to use speech service in:', speech_config.region)
 
 def TranscribeCommand():
     command = ''
