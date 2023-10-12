@@ -55,7 +55,31 @@ async def transcribe(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         try:
             download_file(BOT_TOKEN, audio_id)
-            await update.message.reply_text(TranscribeCommand())
+            text = TranscribeCommand()
+
+            while text:
+                max_message_length = 4096
+                if len(text) <= max_message_length:
+                    await update.message.reply_text(text)
+                    break
+
+                # Find the last full stop, question mark, or exclamation mark within the range
+                split_position = max(
+                    text.rfind('. ', 0, max_message_length),
+                    text.rfind('? ', 0, max_message_length),
+                    text.rfind('! ', 0, max_message_length),
+                )
+
+                if split_position == -1:
+                    # No suitable splitting point found, split at max_message_length
+                    split_position = max_message_length
+
+                message_chunk = text[:split_position].strip()
+                await update.message.reply_text(message_chunk)
+                # await context.bot.send_message(chat_id=chat_id, text=message_chunk)
+
+                text = text[split_position:].strip()
+                
 
         except Exception as e:
             print(f"An error occurred: {e}")
@@ -67,8 +91,31 @@ async def transcribe(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         try:
             download_file(BOT_TOKEN, audio_id)
-            await update.message.reply_text(TranscribeCommand())
+            text = TranscribeCommand()
 
+            while text:
+                max_message_length = 4096
+                if len(text) <= max_message_length:
+                    await update.message.reply_text(text)
+                    break
+
+                # Find the last full stop, question mark, or exclamation mark within the range
+                split_position = max(
+                    text.rfind('. ', 0, max_message_length),
+                    text.rfind('? ', 0, max_message_length),
+                    text.rfind('! ', 0, max_message_length),
+                )
+
+                if split_position == -1:
+                    # No suitable splitting point found, split at max_message_length
+                    split_position = max_message_length
+
+                message_chunk = text[:split_position].strip()
+                await update.message.reply_text(message_chunk)
+                # await context.bot.send_message(chat_id=chat_id, text=message_chunk)
+
+                text = text[split_position:].strip()
+                
         except Exception as e:
             print(f"An error occurred: {e}")
             await update.message.reply_text("Cannot transcribe file because the size is more than 20MB")
