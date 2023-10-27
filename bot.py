@@ -74,11 +74,11 @@ async def transcribe(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     # No suitable splitting point found, split at max_message_length
                     split_position = max_message_length
 
-                message_chunk = text[:split_position].strip()
+                message_chunk = text[:split_position+1].strip()
                 await update.message.reply_text(message_chunk)
                 # await context.bot.send_message(chat_id=chat_id, text=message_chunk)
 
-                text = text[split_position:].strip()
+                text = text[split_position+2:].strip()
                 
 
         except Exception as e:
