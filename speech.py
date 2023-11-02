@@ -1,11 +1,11 @@
 from dotenv import load_dotenv
-from datetime import datetime
+# from datetime import datetime
 from moviepy.editor import *
 import os
 import time
 import requests
 # Import namespaces
-import azure.cognitiveservices.speech as speech_sdk
+# import azure.cognitiveservices.speech as speech_sdk
 
 # Get Configuration Settings
 load_dotenv()
@@ -16,11 +16,11 @@ subscription_key = os.getenv('COG_SERVICE_KEY')
 service_region = os.getenv('COG_SERVICE_REGION')
 
 # Configure speech service
-speech_config = speech_sdk.SpeechConfig(cog_key, cog_region)
+# speech_config = speech_sdk.SpeechConfig(cog_key, cog_region)
 # print('Ready to use speech service in:', speech_config.region)
 
 def TranscribeCommand():
-    command = ''
+    # command = ''
     output_file = "audio.wav"
     audioclip = AudioFileClip("audio.ogg")
     audio_params = {
