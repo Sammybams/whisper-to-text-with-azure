@@ -3,11 +3,12 @@ import requests
 from dotenv import load_dotenv
 load_dotenv()
 
+subscription_key = os.getenv('SUBSCRIPTION_KEY')
+
 def TranscribeCommand():
     
     # Define the endpoint and subscription key
     url = f"https://eastus.api.cognitive.microsoft.com/speechtotext/transcriptions:transcribe?api-version=2024-05-15-preview"
-    subscription_key = os.getenv('SUBSCRIPTION_KEY')
     
     # Set up headers with your subscription key
     # subscription_key = 'YourSubscriptionKey'
